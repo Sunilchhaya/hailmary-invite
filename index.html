@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project Hail Mary – You're Invited!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Fraunces:ital,wght@0,700;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Space Grotesk', sans-serif; }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      background: #1a1060;
+    }
+
+    #page2 { display: none; }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 3s infinite alternate;
+    }
+    @keyframes twinkle { from { opacity: 0.3; } to { opacity: 1; } }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 520px;
+    }
+
+    .rocket-emoji {
+      font-size: 52px;
+      display: block;
+      margin-bottom: 1rem;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .title {
+      font-family: 'Fraunces', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: #ccc6f0;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .movie-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1.4rem;
+    }
+
+    .details-row {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.8rem;
+    }
+
+    .detail-pill {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: center;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+
+    .attempts-msg {
+      color: #e0d9ff;
+      font-size: 0.85rem;
+      margin-top: 1.2rem;
+      min-height: 1.4em;
+      font-style: italic;
+    }
+
+    /* Page 2 */
+    .success-icon {
+      font-size: 56px;
+      display: block;
+      margin-bottom: 1rem;
+      animation: pop 0.5s cubic-bezier(0.36,0.07,0.19,0.97) both;
+    }
+    @keyframes pop {
+      0% { transform: scale(0); opacity: 0; }
+      70% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+
+    .success-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+
+    .confirmed-details {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 12px;
+      padding: 1rem 1.4rem;
+      margin: 1rem 0;
+      color: #ffffff;
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    .funny-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 16px;
+      padding: 1.4rem 1.8rem;
+      margin: 1rem 0;
+      text-align: left;
+    }
+    .funny-card p {
+      color: #ddd8f8;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 0.8rem;
+    }
+    .funny-card p:last-child { margin-bottom: 0; }
+
+    .spoiler-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+
+    #noBtn {
+      position: fixed;
+      z-index: 9999;
+      background: #e53e3e;
+      color: #ffffff;
+      border: 2px solid #fc8181;
+      padding: 0.8rem 2.4rem;
+      border-radius: 999px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+
+<div id="page1" class="page">
+  <div id="starfield" style="position:absolute;inset:0;"></div>
+  <div class="content">
+    <span class="rocket-emoji">🚀</span>
+    <div class="movie-badge">You're Invited</div>
+    <h1 class="title">Wanna watch<br>Project Hail Mary?</h1>
+    <p class="subtitle">The most surprisingly wholesome alien buddy-movie of all time.</p>
+    <div class="details-row">
+      <div class="detail-pill">📅 April 5th</div>
+      <div class="detail-pill">🕑 2:30 PM</div>
+      <div class="detail-pill">🎬 Regal Union Square</div>
+    </div>
+    <div class="btn-group">
+      <button onclick="sayYes()" style="background:#7c3aed;color:#ffffff;border:2px solid #a78bfa;padding:0.8rem 2.4rem;border-radius:999px;font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:700;cursor:pointer;box-shadow:0 0 18px rgba(167,139,250,0.5);">Yes, I'm in! 🙌</button>
+      <div id="noPlaceholder" style="display:inline-block;width:110px;height:48px;"></div>
+    </div>
+    <p class="attempts-msg" id="attemptsMsg"></p>
+  </div>
+</div>
+
+<div id="page2" class="page">
+  <div id="starfield2" style="position:absolute;inset:0;"></div>
+  <div class="content">
+    <span class="success-icon">🎉</span>
+    <h2 class="success-title">We're going to space!</h2>
+    <div class="confirmed-details">
+      📅 April 5th &nbsp;·&nbsp; 🕑 2:30 PM &nbsp;·&nbsp; 🎬 Regal Union Square Theater
+    </div>
+    <div class="funny-card">
+      <span class="spoiler-tag">Zero spoilers, all hype</span>
+      <p>Project Hail Mary is the movie where a scientist wakes up alone in space with no memory, does math to figure out he's on a suicide mission, and somehow this becomes the most heartwarming film you'll ever see.</p>
+      <p>You WILL tear up. Not because anyone dies — but because two beings who share zero DNA, zero language, and zero overlap in evolutionary history become absolute best friends. Science has never been so adorable.</p>
+      <p>Don't be late. 🚀</p>
+    </div>
+  </div>
+</div>
+
+<button id="noBtn">No</button>
+
+<script>
+  function makeStars(containerId, count) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    for (let i = 0; i < count; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() * 2 + 0.5;
+      star.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*3}s;animation-duration:${2+Math.random()*3}s;`;
+      container.appendChild(star);
+    }
+  }
+  makeStars('starfield', 120);
+  makeStars('starfield2', 120);
+
+  const noBtn = document.getElementById('noBtn');
+  let attempts = 0;
+  let initialized = false;
+
+  const messages = [
+    "You can't escape April 5th.",
+    "Rude 😤 it's a great movie!",
+    "Stop trying, just say yes already.",
+    "Rocky would never give up this easily.",
+    "The answer is yes. It has always been yes.",
+    "Your mouse is too slow for this button.",
+    "Maybe try a trackpad? (Won't help.)",
+    "It's a two-hour movie, not a lifetime commitment 😂",
+    "Resistance is futile.",
+  ];
+
+  function initNoBtnPosition() {
+    const placeholder = document.getElementById('noPlaceholder');
+    if (!placeholder) return;
+    const rect = placeholder.getBoundingClientRect();
+    noBtn.style.left = rect.left + 'px';
+    noBtn.style.top = rect.top + 'px';
+    initialized = true;
+  }
+
+  setTimeout(initNoBtnPosition, 150);
+  window.addEventListener('resize', initNoBtnPosition);
+
+  document.addEventListener('mousemove', (e) => {
+    if (!initialized) return;
+    const btnW = noBtn.offsetWidth;
+    const btnH = noBtn.offsetHeight;
+    const margin = 20;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    const btnCenterX = parseFloat(noBtn.style.left) + btnW / 2;
+    const btnCenterY = parseFloat(noBtn.style.top) + btnH / 2;
+    const dx = e.clientX - btnCenterX;
+    const dy = e.clientY - btnCenterY;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    if (dist < 100) {
+      attempts++;
+      const msg = messages[Math.min(attempts - 1, messages.length - 1)];
+      document.getElementById('attemptsMsg').textContent = msg;
+
+      const angle = Math.atan2(dy, dx);
+      const flee = 160 + Math.random() * 80;
+      let newX = parseFloat(noBtn.style.left) - Math.cos(angle) * flee;
+      let newY = parseFloat(noBtn.style.top) - Math.sin(angle) * flee;
+
+      newX = Math.max(margin, Math.min(vw - btnW - margin, newX));
+      newY = Math.max(margin, Math.min(vh - btnH - margin, newY));
+
+      noBtn.style.left = newX + 'px';
+      noBtn.style.top = newY + 'px';
+    }
+  });
+
+  function sayYes() {
+    noBtn.style.display = 'none';
+    document.getElementById('page1').style.display = 'none';
+    document.getElementById('page2').style.display = 'flex';
+  }
+</script>
+</body>
+</html>
